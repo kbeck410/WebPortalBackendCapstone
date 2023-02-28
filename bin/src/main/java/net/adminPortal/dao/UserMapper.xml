@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.adminPortal.WebAdminPortal.dao">
+	
+	<resultMap type="user" id="result">
+		<id property="username" column="USERNAME" />
+		<result property="firstname" column="FirstName" />
+		<result property="lastname" column="Last Name" />
+		<result property="email" column="Email" />
+		<result property="phoneNumber" column="Phone" />
+		<result property="userCreated" column="Created" />
+		<result property="userModified" column="Modified" />
+		<result property="userStatus" column="ISACTIVE" />
+		<result property="password" column="Password" />
+	</resultMap>
+	
+	<select id="getAllUsers" resultType="user" resultMap="result">
+		SELECT * FROM t_users
+	</select>
+	
+	<insert id="insertUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_users(USERNAME, FirstName, Last Name, Email, Phone, Created, Modified, ISACTIVE, Password)
+		VALUES(#{USERNAME}, #{FirstName}, #{Last Name}, #{Email}, #{Phone}, #{Created}, #{Modified}, #{ISACTIVE}, #{Password})
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		UPDATE t_users SET firstname = #{FirstName}, lastname = #{Last Name}, email = #{Email}, phoneNumber = #{Phone}, userCreated = #{Created}, userModified = #{Modified}, userStatus = #{ISACTIVE}, password = #{Password} 
+		WHERE id = #{USERNAME} 
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM user WHERE id = #{USERNAME}
+	</delete>
+	
+	<select id="findById" parameterType="int" resultType="user" resultMap="result">
+		SELECT * FROM user WHERE id = #{USERNAME}
+	</select> 
+</mapper>

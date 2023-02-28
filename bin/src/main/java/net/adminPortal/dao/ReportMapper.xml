@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.adminPortal.WebAdminPortal.dao">
+	
+	<resultMap type="report" id="result">
+		<id property="reportId" column="REPORTID" />
+		<result property="reportName" column="REPORTNAME" />
+		<result property="historymaxDays" column="HISTORYMAXDAYS" />
+		<result property="nonSpoolFile" column="NONSPOOLFILE" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="title" column="TITLE" />
+		<result property="Abstract" column="ABSTRACT" />
+		<result property="expirationDays" column="EXPIRATIONDAYS" />
+		<result property="skipPages" column="SKIPPAGES" />
+		<result property="uploadedfileName" column="UPLOADEDFILENAME" />
+		<result property="creationDate" column="CREATIONDATE" />
+		<result property="allowPrnt" column="ALLOWPRNT" />
+		<result property="addedBy" column="ADDEDBY" />
+		<result property="modifiedBy" column="MODIFIEDBY" />
+		<result property="as400Id" column="AS400ID" />
+		<result property="status" column="STATUS" />
+		<result property="deletedBy" column="DELETEDBY" />
+		<result property="multiReports" column="MULTIREPORTS" />
+		<result property="fileName" column="FILENAME" />
+		<result property="allowOverrides" column="ALLOWOVERRIDES" />
+		<result property="numColumns" column="CONFIDENTIAL" />
+		<result property="biReport" column="BIREPORT" />
+		<result property="helpUrl" column="HELPURL" />
+		<result property="help" column="HELP" />
+		<result property="detailDescription" column="DETAILDESCRIPTION" />
+		<result property="combinePdfReport" column="COMBINE_PDF_REPORT" />
+	</resultMap>
+	
+	<select id="getAllReports" resultType="report" resultMap="result">
+		SELECT * FROM t_report
+	</select>
+	
+	<insert id="insertReport" parameterType="report" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_report(reportName, historymaxDays, nonSpoolFile, description, title, Abstract, expirationDays, skipPages, uploadedfileName, creationDate, allowPrnt, addedBy, modifiedBy,
+		as400Id, status, deletedBy, multiReports, fileName, allowOverrides, numColumns, biReport, helpUrl, help, detailDescription, combinePdfReport)
+		VALUES(#{REPORTNAME}, #{HISTORYMAXDAYS}, #{NONSPOOLFILE}, #{DESCRIPTION}, #{TITLE}, #{ABSTRACT}, #{EXPIRATIONDAYS}, #{SKIPPAGES}, #{UPLOADEDFILENAME}, #{CREATIONDATE}
+		#{ALLOWPRNT},#{ADDEDBY}, #{MODIFIEDBY}, #{AS400ID}, #{STATUS}, #{DELETEDBY}, #{MULTIREPORTS}, #{FILENAME}, #{ALLOWOVERRIDES}, #{CONFIDENTIAL}, #{BIREPORT}, #{HELPURL}, #{HELP},
+		#{DETAILDESCRIPTION}, #{COMBINE_PDF_REPORT})
+	</insert>
+	
+	<update id="updateReport" parameterType="report">
+		UPDATE t_report SET reportName = #{REPORTNAME}, historymaxDays = #{HISTORYMAXDAYS}, nonSpoolFile = #{NONSPOOLFILE}, description = #{DESCRIPTION}, title = #{TITLE}, Abstract = #{ABSTRACT}, expirationDays = #{EXPIRATIONDAYS}, skipPages = #{SKIPPAGES}, 
+		uploadedfileName = #{UPLOADEDFILENAME}, creationDate = #{CREATIONDATE}, allowPrnt = #{ALLOWPRNT}, addedBy = #{ADDEDBY},
+		modifiedBy = #{MODIFIEDBY}, as400Id = #{AS400ID}, status = #{STATUS}, deletedBy = #{DELETEDBY}, multiReports = #{MULTIREPORTS},
+		fileName = #{FILENAME}, detailDescription = #{DETAILDESCRIPTION}, combinePdfReport = #{COMBINE_PDF_REPORT} WHERE id = #{REPORTID} 
+	</update>
+	
+	<delete id="deleteReport" parameterType="int">
+		DELETE FROM t_report WHERE id = #{REPORTID}
+	</delete>
+	
+	<select id="findById" parameterType="int" resultType="user" resultMap="result">
+		SELECT * FROM user WHERE id = #{REPORTID}
+	</select> 
+</mapper>
